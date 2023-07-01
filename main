@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      @font-face {
+          font-family: 'Cheddar Gothic Rough';
+          src: url('https://cdn.glitch.global/7b2eec23-9570-4589-bdad-d4a1cb713004/CheddarGothicRough%20Regular.otf?v=1688205266211'); /* replace with your font URL */
+      }
+
+      body {
+          background-image: url('https://cdn.glitch.global/7b2eec23-9570-4589-bdad-d4a1cb713004/DeasDesigns_SunshineWhiskey_distressed02.jpg?v=1688209467775');
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+          font-family: 'Cheddar Gothic Rough', Arial, sans-serif;
+          src: url('https://cdn.glitch.global/7b2eec23-9570-4589-bdad-d4a1cb713004/CheddarGothicRough%20Regular.otf?v=1688205266211'); /* replace with your font URL */
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+      }
+
+      #content-box {
+          border: 2px solid white; /* Change as needed */
+          padding: 20px; /* Change as needed */
+          width: 70%; /* Change as needed */
+          margin: auto; /* Center the box */
+      }
+
+      #title {
+          color: WHITE;
+          text-align: center;
+      }
+
+      #generate-button {
+        background-image: url('https://cdn.glitch.global/7b2eec23-9570-4589-bdad-d4a1cb713004/vecteezy_start-and-stop-engine-button-clipart-design-illustration_9384346_758.png?v=1688208508364');
+          color: RED;
+          border: none;
+          padding: 10px;
+          margin: 10px 0;
+          font-size: 16px;
+          cursor: pointer;
+
+
+      #prompt {
+          text-align: center;
+          color: white;
+          padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <center>
+        <h1 id="title">Prompt-O-Matic</h1>
+        <button
+          id="generate-button"
+          style="
+            background: url('https://cdn.glitch.global/7b2eec23-9570-4589-bdad-d4a1cb713004/vecteezy_start-and-stop-engine-button-clipart-design-illustration_9384346_758.png?v=1688208508364')
+              no-repeat center / cover;
+            border: none;
+            color: white;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            font-family: SPACE ADVENTURE;
+          "
+        >
+          PRESS
+        </button>
+        <p id="prompt"></p>
+      <p id="prompt" style="font-family: Arial;"></p>
+      </center>
+    </div>
+
+    <script>
+      let prompts = [];
+      let usedPrompts = new Set();
+
+      fetch("prompts.json")
+        .then((response) => response.json())
+        .then((data) => {
+          prompts = data.prompts;
+        });
+
+      document
+        .getElementById("generate-button")
+        .addEventListener("click", function () {
+          let newPrompt = prompts[Math.floor(Math.random() * prompts.length)];
+          while (usedPrompts.has(newPrompt)) {
+            newPrompt = prompts[Math.floor(Math.random() * prompts.length)];
+          }
+          usedPrompts.add(newPrompt);
+          document.getElementById("prompt").innerText = newPrompt;
+        });
+    </script>
+  </body>
+</html>
